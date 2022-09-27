@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Pokedex from './Pokedex';
 import reportWebVitals from './reportWebVitals';
+import GlobalStyle from './theme/GlobalStyles';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <GlobalStyle />
     <Pokedex />
   </React.StrictMode>
 );

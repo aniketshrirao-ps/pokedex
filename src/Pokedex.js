@@ -9,7 +9,7 @@ function Pokedex() {
     <ThemeProvider theme={theme}>
       <div className="container">
         <Home />
-        <Details />
+        {/* <Details /> */}
       </div>
     </ThemeProvider>
   );
