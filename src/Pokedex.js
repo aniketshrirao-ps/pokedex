@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { ThemeProvider } from 'styled-components';
+import Loader from './components/utils/Loader';
 import Details from './pages/details';
-import Home from './pages/home';
 import theme from './theme';
+
+const Home = lazy(() => import('./pages/home'));
 
 function Pokedex() {
   return (
     <ThemeProvider theme={theme}>
-      <div className="container">
-        <Home />
-        {/* <Details /> */}
-      </div>
+      <Suspense fallback={<Loader />}>
+        <div className="container">
+          <Home />
+        </div>
+      </Suspense>
     </ThemeProvider>
   );
 }

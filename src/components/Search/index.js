@@ -1,22 +1,29 @@
 import React, { useState } from 'react'
-import { StyledFilterIcon, StyledSearch, StyledSearchBar, StyledSearchContainer } from './Search.styled';
+import { StyledFilterIcon, StyledFormControl, StyledInputLabel, StyledSearch, StyledSearchBar, StyledSearchContainer, StyledSelect } from './Search.styled';
 import Wrapper from '../utils/Wrapper';
 import { Search as SearchIcon, Tune } from '@mui/icons-material';
 import Modal from 'react-responsive-modal';
 import PokeFilters from '../PokeFilters';
 import { closeIcon } from '../../assets/icons/closeIcon';
 import "react-responsive-modal/styles.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchTerm } from '../../redux/slices/searchFilter';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
+import { Checkbox, FormControl, InputLabel, ListItemText, MenuItem, Select } from '@mui/material';
+import { StyledFormLabel } from '../utils/Dropdowns/Dropdown.styled';
 
 const Search = () => {
     const [showSearchIcon, setShowSearchIcon] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
     const [open, setOpen] = React.useState(false);
-
+    const dispatch = useDispatch();
+    const searchTerm = useSelector((state) => state.search.searchTerm);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const { width } = useWindowDimensions();
+    const [selectedPokeTypes, setSelectedPokeTypes] = useState([]);
 
     const searchHandler = (e) => {
-        setSearchTerm(e.target.value);
+        dispatch(setSearchTerm(e.target.value));
     }
 
     const handleSearchIcon = () => {
@@ -29,6 +36,11 @@ const Search = () => {
         <StyledSearchContainer className='search-container'>
             <Wrapper>
                 <StyledSearchBar className="searchbar">
+                    {
+                        width > '769' && (
+                            <StyledFormLabel>Search by</StyledFormLabel>
+                        )
+                    }
                     <StyledSearch
                         onChange={searchHandler}
                         onFocus={handleSearchIcon}
@@ -42,25 +54,31 @@ const Search = () => {
                     />
                     {showSearchIcon && (<SearchIcon />)}
                 </StyledSearchBar>
-                <StyledFilterIcon className="filter-icon">
-                    <Tune onClick={handleOpen} />
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                        center
-                        closeOnOverlayClick
-                        closeOnEsc
-                        classNames={{
-                            overlay: 'customOverlay',
-                            modal: 'searchContainerCustomModal',
-                        }}
-                        closeIcon={(closeIcon)}
-                    >
+                {
+                    !(width > 769) ? (
+                        <StyledFilterIcon className="filter-icon">
+                            <Tune onClick={handleOpen} />
+                            <Modal
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                                center
+                                closeOnOverlayClick
+                                closeOnEsc
+                                classNames={{
+                                    overlay: 'customOverlay',
+                                    modal: 'searchContainerCustomModal',
+                                }}
+                                closeIcon={(closeIcon)}
+                            >
+                                <PokeFilters />
+                            </Modal>
+                        </StyledFilterIcon>
+                    ) : (
                         <PokeFilters />
-                    </Modal>
-                </StyledFilterIcon>
+                    )
+                }
             </Wrapper>
         </StyledSearchContainer>
     )

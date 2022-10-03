@@ -1,3 +1,4 @@
+import { FormControl, FormLabel, InputLabel, Select } from '@mui/material';
 import styled from 'styled-components';
 
 export const StyledSearchContainer = styled.div`
@@ -6,14 +7,37 @@ export const StyledSearchContainer = styled.div`
     .wrapper { 
         display: flex;
         justify-content: space-between;
-            align-items: center;
+        align-items: center;
+
+        @media screen and (min-width: ${(props) => props.theme.breakpoints.LAPTOP}) {
+            justify-content: flex-start;
+            margin-top: 30px;
+        }
     }
 
     .searchbar svg {
         position: absolute;
-        top: 53%;
-        right: 135px;
+        top: 46px;
+        right: 35%;
         color: ${(props) => props.theme.colors.PRIMARY_COLOR};
+
+        @media screen and (min-width:769px) {
+            top: 86px;
+        }
+
+        @media screen and (min-width: ${(props) => props.theme.breakpoints.LAPTOP}) {
+            right: 52%;
+            top: 62px;
+        }
+
+        @media screen and (min-width: ${(props) => props.theme.breakpoints.LAPTOP}) {
+            right: 65%;
+            top: 65px;
+        }
+
+        @media screen and (min-width: ${(props) => props.theme.breakpoints.DESKTOP}) {
+            right: 63%;
+        }
     }
 
 `;
@@ -21,6 +45,12 @@ export const StyledSearchContainer = styled.div`
 export const StyledSearchBar = styled.div`
     margin-top: 30px;
     width: 70%;
+    margin-right: 2%;
+
+    @media screen and (min-width: ${(props) => props.theme.breakpoints.LAPTOP}) {
+        margin-top: 0;
+        width: 35%;
+    }
 `;
 
 export const StyledFilterIcon = styled.div`
@@ -46,8 +76,6 @@ export const StyledFilterIcon = styled.div`
     }
 `;
 
-
-
 export const StyledSearch = styled.input`
     background: ${(props) => props.theme.colors.DROP_SHADOW};
     padding: 18px 4%;
@@ -63,3 +91,4 @@ export const StyledSearch = styled.input`
         letter-spacing: normal;
     }
 `;
+

@@ -90,14 +90,68 @@ const GlobalStyle = createGlobalStyle`
     .hide { display: none; }
 
     .searchContainerCustomModal {
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+    }
+
+    .customOverlay {
+      background-color: ${theme.colors.BACKDROP_COLOR};
     }
 
     .react-responsive-modal-closeButton {
         top: 40px;
         right: 45px;
+    }
+
+    .customPokeReadMore {
+      max-width: 500px;
+      margin:0 auto;
+      
+      p {
+        padding:30px 2%;
+        opacity: 0.7;
+        color: ${theme.colors.WHITE};
+      }
+
+      & > div {
+        background-color: ${theme.colors.PRIMARY_COLOR};
+      }
+      .react-responsive-modal-closeButton {
+        top: 12px;
+        right: 25px;
+         svg {
+          path {
+            stroke: ${theme.colors.WHITE};
+          }
+         }
+      }
+    }
+
+    @media screen and (min-width: 769px) {
+      .poke-name {
+        position: absolute;
+        text-transform: capitalize;
+        left: 36%;
+      }
+      .poke-number {
+        position: absolute;
+        margin-top: 25px !important;
+        left: 65%;
+        padding:0 3%;
+        border-left: 1px solid  ${theme.colors.SEPERATOR};
+        border-right: 1px solid ${theme.colors.SEPERATOR};
+      }
+  
+      .poke-desc {
+        margin-top: 80px !important;
+        width: 60% !important;
+      }
+    }
+
+    .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+      top: 225px !important;
+      max-height: 40% !important;
     }
 
     ::-webkit-scrollbar-track {
