@@ -92,7 +92,7 @@ const GlobalStyle = createGlobalStyle`
     .searchContainerCustomModal {
       width: 100%;
       height: 100%;
-      margin: 0 auto;
+      margin: 0 auto !important;
     }
 
     .customOverlay {

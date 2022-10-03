@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFilteredPokemonByCategory, getPokeGendersLabel, getPokemons, getPokemonsByFilters, getPokeStatsLabel, getPokeTypesLabel, getUniqueBetweenFilters } from '../../data';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { setPokeList } from '../../redux/slices/pokeList';
+import { setDesktopGenderFilters, setDesktopTypeFilters, setPokeGenderFilters, setPokeTypeFilters } from '../../redux/slices/searchFilter';
 import Dropdown from '../utils/Dropdowns';
 import FilterAccordion from './FilterAccordion';
 import { ApplyButton, ResetButton, StyledCheckbox, StyledFilterControl, StyledFormControl, StyledInputLabel, StyledMenuItem, StyledPokeFilterContainer, StyledSelect } from './PokeFilters.styled';
@@ -11,6 +12,8 @@ import { ApplyButton, ResetButton, StyledCheckbox, StyledFilterControl, StyledFo
 const PokeFilters = () => {
     const pokeTypesSelected = useSelector((state) => state.search.pokeTypeFilters);
     const pokeGendersSelected = useSelector((state) => state.search.pokeGenderFilters);
+    const pokeTypesDeskSelected = useSelector((state) => state.search.desktopTypeFilters);
+    const pokeGendersDeskSelected = useSelector((state) => state.search.desktopGenderFilters);
     const [selectedPokeTypes, setSelectedPokeTypes] = useState([]);
     const [pokeTypes, setPokeTypes] = useState();
     const [pokeGenders, setPokeGenders] = useState();
@@ -27,12 +30,18 @@ const PokeFilters = () => {
 
     const onChangePokeType = async (value) => {
         const typeData = await getFilteredPokemonByCategory("type", value);
-        dispatch(setPokeList(typeData));
+        dispatch(setDesktopTypeFilters(value));
+        const genderData = await getFilteredPokemonByCategory("gender", pokeGendersDeskSelected);
+        const data = getUniqueBetweenFilters(typeData, genderData);
+        dispatch(setPokeList(data));
     }
 
     const onChangePokeGender = async (value) => {
         const genderData = await getFilteredPokemonByCategory("gender", value);
-        dispatch(setPokeList(genderData));
+        dispatch(setDesktopGenderFilters(value));
+        const typeData = await getFilteredPokemonByCategory("type", pokeTypesDeskSelected);
+        const data = getUniqueBetweenFilters(typeData, genderData);
+        dispatch(setPokeList(data));
     }
 
     const onChangePokeStats = () => {

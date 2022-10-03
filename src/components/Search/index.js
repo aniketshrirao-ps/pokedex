@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyledFilterIcon, StyledFormControl, StyledInputLabel, StyledSearch, StyledSearchBar, StyledSearchContainer, StyledSelect } from './Search.styled';
 import Wrapper from '../utils/Wrapper';
 import { Search as SearchIcon, Tune } from '@mui/icons-material';
@@ -11,16 +11,19 @@ import { setSearchTerm } from '../../redux/slices/searchFilter';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { Checkbox, FormControl, InputLabel, ListItemText, MenuItem, Select } from '@mui/material';
 import { StyledFormLabel } from '../utils/Dropdowns/Dropdown.styled';
+import { setPokeList } from '../../redux/slices/pokeList';
+import { getPokemons } from '../../data';
 
 const Search = () => {
     const [showSearchIcon, setShowSearchIcon] = useState(true);
     const [open, setOpen] = React.useState(false);
-    const dispatch = useDispatch();
-    const searchTerm = useSelector((state) => state.search.searchTerm);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const { width } = useWindowDimensions();
     const [selectedPokeTypes, setSelectedPokeTypes] = useState([]);
+    const searchTerm = useSelector((state) => state.search.searchTerm);
+    const dispatch = useDispatch();
+
 
     const searchHandler = (e) => {
         dispatch(setSearchTerm(e.target.value));
@@ -31,6 +34,17 @@ const Search = () => {
             setShowSearchIcon(!showSearchIcon);
         }
     }
+
+    useEffect(() => {
+        getPokemons().then((pokemons) => {
+            const filtered = pokemons.filter((poke) => {
+                let searchCriteria = (poke.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    poke.number.toLowerCase().includes(searchTerm.toLowerCase()));
+                return searchCriteria;
+            });
+            dispatch(setPokeList(filtered));
+        })
+    }, [searchTerm])
 
     return (
         <StyledSearchContainer className='search-container'>

@@ -45,15 +45,15 @@ const PokeList = ({ pokelist }) => {
                             </StyledCard>
                         ))
                     }
-                    {next < pokelist?.length && (
-                        <StyledLoadMore
-                            variant='contained'
-                            onClick={handleMoreImage}
-                        >
-                            Load more
-                        </StyledLoadMore>
-                    )}
                 </Wrapper>
+                {next < pokelist?.length && (
+                    <StyledLoadMore
+                        variant='contained'
+                        onClick={handleMoreImage}
+                    >
+                        Load more
+                    </StyledLoadMore>
+                )}
             </StyledPokeList>
             <Modal
                 open={open}

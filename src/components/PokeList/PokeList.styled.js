@@ -55,7 +55,8 @@ export const StyledCardMedia = styled(CardMedia)`
 `;
 
 export const StyledLoadMore = styled(Button)`
-    margin: 30px auto !important;
+    display: flex !important;
+    margin: 30px auto 50px !important;
     background-color: ${(props) => props.theme.colors.PRIMARY_COLOR} !important;
 `;
 

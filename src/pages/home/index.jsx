@@ -25,19 +25,6 @@ const Home = () => {
         });
     }, [])
 
-    useEffect(() => {
-        if (searchTerm) {
-            getPokemons().then((data) => {
-                const filtered = data.filter((poke) => {
-                    let searchCriteria = (poke.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        poke.number.toLowerCase().includes(searchTerm.toLowerCase()));
-                    return searchCriteria;
-                });
-                dispatch(setPokeList(filtered));
-            })
-        }
-    }, [searchTerm])
-
     return (
         <main>
             <Header />

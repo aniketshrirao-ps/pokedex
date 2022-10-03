@@ -17,7 +17,7 @@ export const statMarks = [
 // getPokemons
 export const getPokemons = async () => {
     try {
-        const response = await axios.get(`${API_URL}pokemon`);
+        const response = await axios.get(`${API_URL}pokemon/?limit=2000`);
         if (response.status === 200) {
             const pokemons = response.data.results;
             const uniquePokemons = removeDuplicates(pokemons);
@@ -197,6 +197,7 @@ function leftPad(number, targetLength) {
     return output;
 }
 
+// get poke types damage from or weak against from
 async function getPokeTypeDamageFrom(names) {
     try {
         const response = await axios.get(`${API_URL}type/`);

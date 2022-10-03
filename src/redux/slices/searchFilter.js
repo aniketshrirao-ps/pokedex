@@ -4,6 +4,8 @@ const initialState = {
     searchTerm: '',
     pokeTypeFilters: [],
     pokeGenderFilters: [],
+    desktopTypeFilters: [],
+    desktopGenderFilters: [],
 };
 
 export const searchSlice = createSlice({
@@ -30,10 +32,16 @@ export const searchSlice = createSlice({
                 state.pokeGenderFilters.splice(state.pokeGenderFilters.findIndex(a => a.name === action.payload.name), 1)
             }
         },
+        setDesktopTypeFilters: (state = initialState, action) => {
+            state.desktopTypeFilters = action.payload;
+        },
+        setDesktopGenderFilters: (state = initialState, action) => {
+            state.desktopGenderFilters = action.payload;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { setSearchTerm, setPokeGenderFilters, setPokeTypeFilters } = searchSlice.actions;
+export const { setSearchTerm, setPokeGenderFilters, setPokeTypeFilters, setDesktopGenderFilters, setDesktopTypeFilters } = searchSlice.actions;
 
 export default searchSlice.reducer;

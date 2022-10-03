@@ -46,6 +46,10 @@ export const StyledPokeAttributes = styled.ul`
         }
 
     }
+
+    li:last-of-type {
+        width: 100%;
+    }
     
     @media screen and (min-width: ${(props) => props.theme.breakpoints.TAB}) {
         li:last-of-type {
@@ -107,6 +111,12 @@ export const StyledPokeDescription = styled(Typography)`
         text-decoration: underline;
         position: absolute;
         bottom: 0;
+        display: block;
+
+        @media screen and (min-width: ${(props) => props.theme.breakpoints.SMALL_TAB}) {
+            display: inline-block;
+        }
+
     }
 `;
 
@@ -126,10 +136,7 @@ export const StyledPokeTypeButton = styled(Button)`
 
 export const StyledPokeTypeButtonGroup = styled.div`
     display: flex;
-
-    @media screen and (min-width: ${(props) => props.theme.breakpoints.TAB}) {
-        flex-wrap: wrap;
-    }
+    flex-wrap: wrap;
 `;
 
 export const StyledPokeStats = styled.div`
