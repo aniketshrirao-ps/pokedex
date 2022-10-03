@@ -149,7 +149,7 @@ const GlobalStyle = createGlobalStyle`
       }
     }
 
-    .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+    .MuiPopover-paper {
       top: 225px !important;
       max-height: 40% !important;
     }
